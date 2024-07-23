@@ -19,10 +19,11 @@ builder.Services.AddControllers();
 // Registrar o SqlConnection como um serviço
 builder.Services.AddScoped<SqlConnection>(_ => new SqlConnection(connectionString));
 
-builder.Services.AddAutoMapper(typeof(ClienteProfile));
+builder.Services.AddAutoMapper(typeof(ClienteProfile), typeof(UsuarioProfile));
 
 builder.Services.AddScoped<IBaseRepository, BaseRepository>();
 builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

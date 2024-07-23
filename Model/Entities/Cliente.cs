@@ -20,5 +20,11 @@ namespace ApiClienteUsuarioCompleta.Model.Entities
         public int TipoCliente { get; set; }
 
         public bool Ativo { get; set; }
+
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
+        public int UsuarioId { get; set; }
+
+        // Propriedade de navegação
+        public Usuario Usuario { get; set; }
     }
 }

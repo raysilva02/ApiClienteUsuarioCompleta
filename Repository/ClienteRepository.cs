@@ -32,5 +32,16 @@ namespace ApiClienteUsuarioCompleta.Repository
             }).ToList();
             return clientesDto;
         }
+
+        public async Task<IEnumerable<ClienteUsuarioDto>> GetClienteUsuarioAsync(int UsuarioId)
+        {
+            var clientes = await _context.Clientes.FromSqlInterpolated($"SELECT * FROM Clientes WHERE UsuarioId = {UsuarioId}").ToListAsync();
+            var clientesDto = clientes.Select(c => new ClienteUsuarioDto
+            {
+                Nome = c.Nome,
+                UsuarioId = c.UsuarioId,
+            }).ToList();
+            return clientesDto;
+        }
     }
 }

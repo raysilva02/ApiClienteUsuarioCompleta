@@ -9,5 +9,6 @@ namespace ApiClienteUsuarioCompleta.Model.Dtos.Cliente
         public string Email { get; set; }
         public int TipoCliente { get; set; }
         public bool Ativo { get; set; }
+        public int UsuarioId { get; set; }
     }
 }

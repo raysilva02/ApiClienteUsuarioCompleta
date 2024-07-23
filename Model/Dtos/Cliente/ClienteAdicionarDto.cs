@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace ApiClienteUsuarioCompleta.Model.Dtos
+namespace ApiClienteUsuarioCompleta.Model.Dtos.Cliente
 {
     public class ClienteAdicionarDto
     {

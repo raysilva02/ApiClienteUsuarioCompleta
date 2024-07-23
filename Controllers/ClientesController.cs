@@ -8,10 +8,10 @@ using Microsoft.EntityFrameworkCore;
 using ApiClienteUsuarioCompleta.Data;
 using ApiClienteUsuarioCompleta.Model;
 using ApiClienteUsuarioCompleta.Repository.Interface;
-using ApiClienteUsuarioCompleta.Model.Dtos;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using AutoMapper;
 using ApiClienteUsuarioCompleta.Model.Entities;
+using ApiClienteUsuarioCompleta.Model.Dtos.Cliente;
 
 namespace ApiClienteUsuarioCompleta.Controllers
 {
@@ -48,7 +48,7 @@ namespace ApiClienteUsuarioCompleta.Controllers
             {
                 return NotFound();
             }
-            return Ok(cliente);
+            return Ok(clienteRetorno);
         }
 
         // PUT: api/Clientes/5
@@ -91,7 +91,7 @@ namespace ApiClienteUsuarioCompleta.Controllers
             _repository.Delete(cliente);
             await _repository.SaveChangesAsync();
 
-            return NoContent(); //alteração
+            return NoContent(); 
         }
     }
 }

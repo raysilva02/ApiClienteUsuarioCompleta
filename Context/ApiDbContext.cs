@@ -11,5 +11,6 @@ namespace ApiClienteUsuarioCompleta.Data
         }
 
         public DbSet<Cliente> Clientes { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
     }
 }

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.SqlClient;
 using Microsoft.AspNetCore.Http.HttpResults;
 using ApiClienteUsuarioCompleta.Model.Entities;
-using ApiClienteUsuarioCompleta.Model.Dtos;
+using ApiClienteUsuarioCompleta.Model.Dtos.Cliente;
 namespace ApiClienteUsuarioCompleta.Repository
 {
     public class ClienteRepository : BaseRepository, IClienteRepository

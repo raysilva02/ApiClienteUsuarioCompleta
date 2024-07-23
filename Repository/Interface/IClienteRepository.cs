@@ -1,4 +1,4 @@
-﻿using ApiClienteUsuarioCompleta.Model.Dtos;
+﻿using ApiClienteUsuarioCompleta.Model.Dtos.Cliente;
 using ApiClienteUsuarioCompleta.Model.Entities;
 
 namespace ApiClienteUsuarioCompleta.Repository.Interface

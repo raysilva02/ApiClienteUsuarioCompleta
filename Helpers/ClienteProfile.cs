@@ -11,6 +11,7 @@ namespace ApiClienteUsuarioCompleta.Helpers
             CreateMap<Cliente, ClienteDetailsDto>();
             CreateMap<ClienteAdicionarDto, Cliente>();
             CreateMap<ClienteAtualizarDto, Cliente>();
+            CreateMap<Cliente, ClienteUsuarioDto>();
         }
     }
 }

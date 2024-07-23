@@ -91,7 +91,23 @@ namespace ApiClienteUsuarioCompleta.Controllers
             _repository.Delete(cliente);
             await _repository.SaveChangesAsync();
 
-            return NoContent(); 
+            return NoContent();
         }
+
+        [HttpGet("usuario/{UsuarioId}")]
+        public async Task<IActionResult> GetClienteUsuario(int UsuarioId)
+        {
+            var clientes = await _repository.GetClienteUsuarioAsync(UsuarioId);
+
+            if (clientes == null || !clientes.Any())
+            {
+                return NotFound("Esse usuário não possui clientes");
+            }
+            var clientesDto = _mapper.Map<List<ClienteUsuarioDto>>(clientes);
+
+            return Ok(clientesDto);
+        }
+
+
     }
 }

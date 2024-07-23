@@ -7,5 +7,7 @@ namespace ApiClienteUsuarioCompleta.Repository.Interface
     {
         Task<IEnumerable<ClienteDto>> GetClientesAsync();
         Task<Cliente> GetClienteByIdAsync(Guid id);
+
+        Task<IEnumerable<ClienteUsuarioDto>> GetClienteUsuarioAsync(int UsuarioId);
     }
 }

@@ -91,7 +91,7 @@ namespace ApiClienteUsuarioCompleta.Controllers
             _repository.Delete(cliente);
             await _repository.SaveChangesAsync();
 
-            return NoContent();
+            return NoContent(); //alteração
         }
     }
 }

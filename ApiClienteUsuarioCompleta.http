@@ -1,0 +1,6 @@
+@ApiClienteUsuarioCompleta_HostAddress = http://localhost:5274
+
+GET {{ApiClienteUsuarioCompleta_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -53,6 +53,17 @@ namespace ApiClienteUsuarioCompleta.Controllers
             return Ok(usuarioRetorno);
         }
 
+        [HttpGet("/nome{nome}")]
+
+        public async Task<IActionResult> GetUsuarioByName(string nome)
+        {
+            var usuarios = await _repository.GetUsuarioByNameAsync(nome);
+            if (usuarios == null) return NotFound("Usuário não encontrado");
+
+            var usuariosRetorno = _mapper.Map<List<UsuarioDto>>(usuarios);
+            return Ok(usuariosRetorno);
+        }
+
         // PUT: api/Usuarios/5
         [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]

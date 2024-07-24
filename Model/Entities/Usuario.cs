@@ -20,6 +20,7 @@ namespace ApiClienteUsuarioCompleta.Model.Entities
 
         [Compare("Senha", ErrorMessage ="As senhas não são condizentes")]
         public string SenhaConfirmacao { get; set; }
+        public string Role { get; set; }
         public ICollection<Cliente> Clientes { get; set; }
     }
 }

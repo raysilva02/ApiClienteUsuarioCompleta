@@ -11,9 +11,11 @@ using ApiClienteUsuarioCompleta.Repository;
 using ApiClienteUsuarioCompleta.Repository.Interface;
 using ApiClienteUsuarioCompleta.Model.Dtos.Usuario;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ApiClienteUsuarioCompleta.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UsuariosController : ControllerBase
@@ -52,6 +54,7 @@ namespace ApiClienteUsuarioCompleta.Controllers
         }
 
         // PUT: api/Usuarios/5
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutUsuario(int id, UsuarioAtualizarDto usuario)
         {
@@ -64,6 +67,7 @@ namespace ApiClienteUsuarioCompleta.Controllers
         }
 
         // POST: api/Usuarios
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> PostUsuario(UsuarioAdicionarDto usuario)
         {
@@ -79,6 +83,7 @@ namespace ApiClienteUsuarioCompleta.Controllers
         }
 
         // DELETE: api/Usuarios/5
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUsuario(int id)
         {

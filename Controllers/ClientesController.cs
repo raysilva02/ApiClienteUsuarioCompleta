@@ -12,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using AutoMapper;
 using ApiClienteUsuarioCompleta.Model.Entities;
 using ApiClienteUsuarioCompleta.Model.Dtos.Cliente;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ApiClienteUsuarioCompleta.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ClientesController : ControllerBase
@@ -52,6 +54,7 @@ namespace ApiClienteUsuarioCompleta.Controllers
         }
 
         // PUT: api/Clientes/5
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCliente(Guid id, ClienteAtualizarDto cliente)
         {
@@ -64,6 +67,7 @@ namespace ApiClienteUsuarioCompleta.Controllers
         }
 
         //POST: api/Clientes
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> PostCliente(ClienteAdicionarDto cliente)
         {
@@ -79,6 +83,7 @@ namespace ApiClienteUsuarioCompleta.Controllers
         }
 
         // DELETE: api/Clientes/5
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCliente(Guid id)
         {

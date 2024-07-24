@@ -8,5 +8,6 @@ namespace ApiClienteUsuarioCompleta.Repository.Interface
     {
         Task<IEnumerable<UsuarioDto>> GetUsuariosAsync();
         Task<Usuario> GetUsuarioByIdAsync(int id);
+        Task<IEnumerable<UsuarioDto>> GetUsuarioByNameAsync(string name);
     }
 }

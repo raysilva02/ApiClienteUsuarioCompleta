@@ -23,7 +23,7 @@ namespace ApiClienteUsuarioCompleta.Service
         public async Task<string> GenerateToken(LoginDto loginDto)
         {
             var usuarioBanco = await _usuarioRepository.GetUsuarioByIdAsync(loginDto.Id);
-            if (usuarioBanco == null) return null;
+            if (usuarioBanco == null || usuarioBanco.Senha != loginDto.Senha) return null;
 
             var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"] ?? string.Empty));
             var issuer = _configuration["Jwt:Issuer"];

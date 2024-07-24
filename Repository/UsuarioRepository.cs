@@ -22,6 +22,17 @@ namespace ApiClienteUsuarioCompleta.Repository
             return usuario;
         }
 
+        public async Task<IEnumerable<UsuarioDto>> GetUsuarioByNameAsync(string name)
+        {
+            var usuarios = await _context.Usuarios.FromSqlInterpolated($"SELECT * FROM Usuarios WHERE Nome = {name}").ToListAsync();
+            var usuariosDto = usuarios.Select(u => new UsuarioDto
+            {
+                Nome = u.Nome, 
+                Email = u.Email,
+            }).ToList();
+            return usuariosDto;
+        }
+
         public async Task<IEnumerable<UsuarioDto>> GetUsuariosAsync()
         {
             var usuarios = await _context.Usuarios.FromSqlRaw("SELECT * FROM Usuarios").ToListAsync();

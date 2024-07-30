@@ -13,6 +13,7 @@ using AutoMapper;
 using ApiClienteUsuarioCompleta.Model.Entities;
 using ApiClienteUsuarioCompleta.Model.Dtos.Cliente;
 using Microsoft.AspNetCore.Authorization;
+using ApiClienteUsuarioCompleta.Service.Interface;
 
 namespace ApiClienteUsuarioCompleta.Controllers
 {
@@ -21,12 +22,12 @@ namespace ApiClienteUsuarioCompleta.Controllers
     [ApiController]
     public class ClientesController : ControllerBase
     {
-        private readonly IClienteRepository _repository;
+        private readonly IClienteService _service;
         private readonly IMapper _mapper;
 
-        public ClientesController(IClienteRepository repository, IMapper mapper)
+        public ClientesController(IClienteService service, IMapper mapper)
         {
-            _repository = repository;
+            _service = service;
             _mapper = mapper;
         }
 
@@ -34,7 +35,7 @@ namespace ApiClienteUsuarioCompleta.Controllers
         [HttpGet]
         public async Task<IActionResult> GetClientes()
         {
-            var clientes = await _repository.GetClientesAsync();
+            var clientes = await _service.GetClientes();
             return Ok(clientes);
         }
 
@@ -42,11 +43,9 @@ namespace ApiClienteUsuarioCompleta.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCliente(Guid id)
         {
-            var cliente = await _repository.GetClienteByIdAsync(id);
+            var clienteRetorno = await _service.GetClienteById(id);
 
-            var clienteRetorno = _mapper.Map<ClienteDetailsDto>(cliente);
-
-            if (cliente == null)
+            if (clienteRetorno == null)
             {
                 return NotFound();
             }
@@ -58,12 +57,9 @@ namespace ApiClienteUsuarioCompleta.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCliente(Guid id, ClienteAtualizarDto cliente)
         {
-            var clienteBanco = await _repository.GetClienteByIdAsync(id);
-            var clienteAtualizar = _mapper.Map(cliente, clienteBanco);
-            _repository.Update(clienteAtualizar);
-            return await _repository.SaveChangesAsync()
-                ? Ok(cliente)
-                : BadRequest("Erro ao editar cliente");
+            var clienteAtualizar = await _service.PutCliente(id, cliente);
+            if (clienteAtualizar == null) return BadRequest("Erro ao atualizar cliente");
+            return Ok(cliente);
         }
 
         //POST: api/Clientes
@@ -71,15 +67,9 @@ namespace ApiClienteUsuarioCompleta.Controllers
         [HttpPost]
         public async Task<IActionResult> PostCliente(ClienteAdicionarDto cliente)
         {
-            if (cliente == null) return BadRequest("Dados inválidos!");
-
-            var clienteAdicionar = _mapper.Map<Cliente>(cliente);
-
-            _repository.Add(clienteAdicionar);
-
-            return await _repository.SaveChangesAsync()
-                ? Ok(cliente)
-                : BadRequest("Erro ao adicionar cliente");
+            if (cliente == null) return BadRequest("Erro ao adicionar cliente");
+            var clienteRetorno = await _service.PostCliente(cliente);
+            return Ok(clienteRetorno);
         }
 
         // DELETE: api/Clientes/5
@@ -87,32 +77,21 @@ namespace ApiClienteUsuarioCompleta.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCliente(Guid id)
         {
-            var cliente = await _repository.GetClienteByIdAsync(id);
+            var cliente = await _service.DeleteCliente(id);
             if (cliente == null)
             {
                 return NotFound("Cliente não encontrado");
             }
-
-            _repository.Delete(cliente);
-            await _repository.SaveChangesAsync();
-
             return NoContent();
         }
 
         [HttpGet("usuario/{UsuarioId}")]
         public async Task<IActionResult> GetClienteUsuario(int UsuarioId)
         {
-            var clientes = await _repository.GetClienteUsuarioAsync(UsuarioId);
-
-            if (clientes == null || !clientes.Any())
-            {
-                return NotFound("Esse usuário não possui clientes");
-            }
-            var clientesDto = _mapper.Map<List<ClienteUsuarioDto>>(clientes);
-
-            return Ok(clientesDto);
+            var clientes = await _service.GetClienteUsuario(UsuarioId);
+            if (clientes == null) return NotFound("Esse usuário não possui clientes");
+            return Ok(clientes);
         }
-
 
     }
 }
